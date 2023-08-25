@@ -9,6 +9,7 @@
             width: 100vw; height: 100vh;
             background-color: rgb(32, 32, 32);
             color: white; font-family: Verdana, Geneva, Tahoma, sans-serif;
+            overflow-x: hidden;
         }
 
         body {
@@ -79,6 +80,20 @@
             filter: brightness(150%);
         }
 
+        .gallery {
+            width: 90vw;
+            margin: 2vh 5vw;
+            columns: 4;
+            column-gap: 1vh;
+        }
+
+        .gallery__img {
+            width: 100%; height: 100%;
+            padding: 1vw;
+            cursor: pointer;
+            object-fit: cover;
+        }
+
     </style>
 </head>
 <body>
@@ -92,5 +107,37 @@
             </button>
         </div>
     </header>
+    <section class="gallery">
+    </section>
+
+    <script>
+        const access_key = 'cYCTF66Hv4Ie-SqbXNDcL18--SEoCv5rOZhai0iI_t0';
+        const random_photo_url = `https://api.unsplash.com/photos/random?client_id=${access_key}&count=24`;
+
+        let allImages; // this will store all the images
+        function getImages() {
+            fetch(random_photo_url)
+            .then(res => res.json())
+            .then(data => {
+                allImages = data;
+                makeImages(allImages);
+            });
+        }
+
+        const gallery = document.querySelector('.gallery');
+        function makeImages (data) {
+            data.forEach((item, index) => {
+
+                let img = document.createElement('img');
+                img.src = item.urls.regular;
+                img.className = 'gallery__img';
+
+                gallery.appendChild(img);
+            })
+        }
+
+        getImages();
+        
+    </script>
 </body>
 </html>
