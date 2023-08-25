@@ -50,8 +50,6 @@
         }
 
         input {
-            height: auto; background-color: rgba(0, 0, 0, 0); padding: 0;
-            border: none;
             color: white; font-size: 2vh;
             flex-grow: 1;
         }
@@ -60,14 +58,33 @@
             border: none; outline: none;
         }
 
+        input::placeholder {
+            color: rgb(196, 196, 196);
+            font-size: 2vh;
+        }
+
         .searchBox:has(input:focus) {
             outline: 0.5vh solid rgb(255, 176, 193);
             outline-offset: -0.2vh;
         }
 
-        .startSearchBut {
+        .closeButt {
+            font-size: 1.5vh; line-height: normal; color: rgb(218, 218, 218); font-weight: bold;
+            padding: 1vh; background-color: rgb(214, 69, 101);
+            height: 2vh; width: 2vh; 
+            border-radius: 2vh; border: 0.3vh solid white;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1;
+        }
+
+        .startSearchBut, input {
             background-color: rgba(0, 0, 0, 0);
             border: none;
+            padding: 0;
+        }
+
+        .startSearchBut {
+            display: flex; align-items: center;
         }
 
         .startSearchBut img {
@@ -94,6 +111,34 @@
             object-fit: cover;
         }
 
+        footer a {
+            text-decoration: none;
+            color: rgb(255, 176, 193);
+            transition: 0.5s;
+        }
+
+        footer a:hover {
+            color: rgb(214, 69, 101);
+        }
+
+        footer {
+            display: flex; flex-direction: column; align-items: center;
+            padding: 3vh 5vw 5vh;
+            border-top: 0.2vh solid rgb(46, 46, 46);
+        }
+
+        footer a, footer span {
+            font-size: 2vh; line-height: 3vh;
+        }
+
+        footer img {
+            filter: invert();
+        }
+
+        .logo {
+            height: auto; width: 5vw;
+            min-height: 5vh; min-width: 15vh;
+        }
     </style>
 </head>
 <body>
@@ -101,7 +146,7 @@
         <img class="cameraIcon" src="camera-8-svgrepo-com.svg" alt="">
         <h1>Unsplash API</h1>
         <div class="searchBox">
-            <input type="text">
+            <input type="text" placeholder="Search..." autocomplete="off" autofocus>
             <button class="startSearchBut">
                 <img src="loupe-search-svgrepo-com.svg" alt="">
             </button>
@@ -109,12 +154,15 @@
     </header>
     <section class="gallery">
     </section>
-
+    <footer>
+        <a href="https://rs.school/js-stage0/" target="_blank" class="logo"><img src="rs_school-logo.svg" alt="rs-school's logo"></a>
+        <div><span>©</span> <span>2023</span> <a href="https://github.com/ArishaSuperNyasha" target="_blank">github</a></div>
+    </footer>
     <script>
-        const access_key = 'cYCTF66Hv4Ie-SqbXNDcL18--SEoCv5rOZhai0iI_t0';
+        const access_key = '9SYcJ_HYPqq5PT_kfv4mRWY16fKBpXIa0UdbRv09UnE';
         const random_photo_url = `https://api.unsplash.com/photos/random?client_id=${access_key}&count=24`;
 
-        let allImages; // this will store all the images
+        let allImages;
         function getImages() {
             fetch(random_photo_url)
             .then(res => res.json())
@@ -126,7 +174,7 @@
 
         const gallery = document.querySelector('.gallery');
         function makeImages (data) {
-            data.forEach((item, index) => {
+            data.forEach(item => {
 
                 let img = document.createElement('img');
                 img.src = item.urls.regular;
@@ -136,7 +184,35 @@
             })
         }
 
-        getImages();
+        //getImages();
+
+        let arr = [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 219, 221, 222, 186, 76, 75, 74, 72, 71, 70, 68, 83, 65, 90, 88, 67, 86, 66, 78, 77, 188, 190, 191, 32, 49, 50, 51, 52, 192, 53, 54, 55, 56, 57, 48, 189, 187, 220, 96, 97, 100, 103, 104, 101, 98, 99, 102, 105];
+        let closeButt = document.createElement('button');
+        closeButt.className = "closeButt";
+        closeButt.innerHTML  = '<p>x</p>';
+        let input = document.querySelector('input');
+        input.onkeyup = () => {
+            if (document.querySelector('input:focus')) {
+                if (arr.includes(event.keyCode) && (document.querySelector('.closeButt') === null)) {
+                    input.before(closeButt);
+                    let curCloseButt = document.querySelector('.closeButt');
+                    curCloseButt.addEventListener('click', () => {
+                        input.value ='';
+                        if (curCloseButt !== null) curCloseButt.remove();
+                    });
+                }
+                if ((event.keyCode === 13) && (document.querySelector('.closeButt') !== null)) {
+                    findImgs(document.querySelector('input').value);
+                }
+            }
+        };
+
+        function findImgs (value) {
+            console.log(value);
+            input.value ='';
+            document.querySelector('.closeButt').remove();
+        }
+
         
     </script>
 </body>
