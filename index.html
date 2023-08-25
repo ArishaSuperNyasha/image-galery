@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=yes">
+    <style>
+        html {
+            width: 100vw; height: 100vh;
+            background-color: rgb(32, 32, 32);
+            color: white; font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 3vh;
+            margin: 0;
+            margin-right: 40%;
+            margin-left: 0.5%;
+        }
+
+        header {
+            height: 10%;
+            border-bottom: 1vh solid rgba(214, 69, 100, 0.52);
+            display: flex; flex-direction: row; 
+            justify-content: flex-start; align-items: flex-end; 
+            flex-wrap: wrap;
+            padding: 2vh 5vw;
+        }
+
+        .cameraIcon {
+            width: auto; height: 4vh;
+            
+        }
+
+        .searchBox {
+            height: 4vh;
+            background-color: rgb(145, 145, 145);
+            border-radius: 5vh;
+            flex-grow: 1; min-width: 150px;
+            margin-top: 2vh;
+            display: flex; flex-direction: row;
+            padding: 0 1vw;
+            transition: 0.2s;
+            outline: none;
+        }
+
+        input {
+            height: auto; background-color: rgba(0, 0, 0, 0); padding: 0;
+            border: none;
+            color: white; font-size: 2vh;
+            flex-grow: 1;
+        }
+
+        input:focus {
+            border: none; outline: none;
+        }
+
+        .searchBox:has(input:focus) {
+            outline: 0.5vh solid rgb(255, 176, 193);
+            outline-offset: -0.2vh;
+        }
+
+        .startSearchBut {
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
+        }
+
+        .startSearchBut img {
+            height: 2vh;
+            transform: scale(-1, 1);
+            transition: 1s;
+        }
+
+        .startSearchBut:focus img {
+            filter: brightness(150%);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <img class="cameraIcon" src="camera-8-svgrepo-com.svg" alt="">
+        <h1>Unsplash API</h1>
+        <div class="searchBox">
+            <input type="text">
+            <button class="startSearchBut">
+                <img src="loupe-search-svgrepo-com.svg" alt="">
+            </button>
+        </div>
+    </header>
+</body>
+</html>
